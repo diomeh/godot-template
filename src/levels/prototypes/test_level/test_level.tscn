@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://c7h3blj7icner"]
+
+[ext_resource type="Script" uid="uid://cdysolqh1fi61" path="res://src/levels/prototypes/test_level/test_level.gd" id="1_087oc"]
+[ext_resource type="Script" uid="uid://l1qpd7ltgx0i" path="res://src/gameplay/camera/player_camera.gd" id="2_7wa2o"]
+
+[sub_resource type="Gradient" id="Gradient_sky"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.035, 0.11, 0.2, 1, 0.15, 0.42, 0.48, 1, 0.94, 0.58, 0.3, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sky"]
+gradient = SubResource("Gradient_sky")
+width = 640
+height = 360
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_water"]
+colors = PackedColorArray(0.05, 0.28, 0.37, 1, 0.015, 0.1, 0.2, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_water"]
+gradient = SubResource("Gradient_water")
+width = 640
+height = 180
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1280, 48)
+
+[node name="TestLevelAssetFree" type="Node2D" unique_id=455660327]
+script = ExtResource("1_087oc")
+
+[node name="Background" type="Node2D" parent="." unique_id=747214816]
+
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=681257291]
+texture = SubResource("GradientTexture2D_sky")
+centered = false
+
+[node name="Sun" type="Polygon2D" parent="Background" unique_id=185143611]
+position = Vector2(154, 86)
+color = Color(1, 0.85, 0.42, 1)
+polygon = PackedVector2Array(-26, 0, -22, -13, -13, -22, 0, -26, 13, -22, 22, -13, 26, 0, 22, 13, 13, 22, 0, 26, -13, 22, -22, 13)
+
+[node name="DistantIsland" type="Polygon2D" parent="Background" unique_id=1905150847]
+color = Color(0.06, 0.2, 0.24, 1)
+polygon = PackedVector2Array(0, 214, 86, 177, 144, 202, 222, 150, 303, 206, 386, 174, 490, 214)
+
+[node name="Water" type="Sprite2D" parent="Background" unique_id=1056050338]
+position = Vector2(0, 180)
+texture = SubResource("GradientTexture2D_water")
+centered = false
+
+[node name="WaveLines" type="Node2D" parent="Background" unique_id=437502936]
+modulate = Color(0.5, 0.88, 0.85, 0.4)
+
+[node name="WaveA" type="Polygon2D" parent="Background/WaveLines" unique_id=724357881]
+polygon = PackedVector2Array(32, 228, 168, 228, 184, 232, 48, 232)
+
+[node name="WaveB" type="Polygon2D" parent="Background/WaveLines" unique_id=1192016780]
+polygon = PackedVector2Array(282, 258, 470, 258, 492, 262, 304, 262)
+
+[node name="WaveC" type="Polygon2D" parent="Background/WaveLines" unique_id=571133186]
+polygon = PackedVector2Array(80, 306, 260, 306, 278, 310, 98, 310)
+
+[node name="Terrain" type="Node2D" parent="." unique_id=367268482]
+
+[node name="Ground" type="Polygon2D" parent="Terrain" unique_id=1948820695]
+color = Color(0.08, 0.28, 0.18, 1)
+polygon = PackedVector2Array(0, 286, 72, 274, 145, 282, 220, 266, 307, 278, 388, 258, 466, 274, 550, 248, 640, 265, 640, 360, 0, 360)
+
+[node name="GroundHighlight" type="Line2D" parent="Terrain" unique_id=466147160]
+points = PackedVector2Array(0, 286, 72, 274, 145, 282, 220, 266, 307, 278, 388, 258, 466, 274, 550, 248, 640, 265)
+width = 4.0
+default_color = Color(0.38, 0.72, 0.35, 1)
+
+[node name="GroundCollision" type="StaticBody2D" parent="Terrain" unique_id=1032396556]
+position = Vector2(320, 326)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/GroundCollision" unique_id=700556782]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Entities" type="Node2D" parent="." unique_id=1655516443]
+
+[node name="PlayerSpawn" type="Marker2D" parent="Entities" unique_id=741275071]
+position = Vector2(480, 220)
+
+[node name="PlayerCamera" type="Camera2D" parent="Entities" unique_id=860772617]
+position = Vector2(480, 220)
+zoom = Vector2(2, 2)
+process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+script = ExtResource("2_7wa2o")
+
+[node name="Environment" type="Node2D" parent="." unique_id=1957669653]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Environment" unique_id=1929093302]
+color = Color(0.9, 0.97, 0.84, 1)
